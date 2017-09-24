@@ -42,18 +42,22 @@ class ArticleDetails extends Component {
         return (
             <div>
                 {this.props.selectedArticle.article._id?<ArticleDetailHeader article = {this.props.selectedArticle.article}/>:null}
-                 {this.props.userData._id ? <NewCommentItem  addNewComment = {this.addNewComment.bind(this)} />:null}
 
-                 <ul className = "container">
+                <div className = "container"> {this.props.selectedArticle.article.content}
+                <hr/>
+                {this.props.userData._id ? <NewCommentItem  addNewComment = {this.addNewComment.bind(this)} />:null}
 
-                 {this.props.selectedArticle.comments.map((item) =>
-                 <CommentItem key ={item._id} comment = {item}
-                 loggedInUser = {this.props.userData }
-                 removeComment = {this.removeComment.bind(this)}
-                 />
+                     <ul >
 
-                 )}
-                 </ul>
+                     {this.props.selectedArticle.comments.map((item) =>
+                     <CommentItem key ={item._id} comment = {item}
+                     loggedInUser = {this.props.userData }
+                     removeComment = {this.removeComment.bind(this)}
+                     />
+
+                     )}
+                     </ul>
+                </div>
             </div>
         );
     }
