@@ -1,6 +1,8 @@
 /**
  * Created by rabby on 22/08/17.
  */
+
+export const apihost = "https://protected-dusk-49814.herokuapp.com/";//http://localhost:3000/
 class dataApi {
     constructor() {
 
@@ -11,7 +13,7 @@ class dataApi {
     static login(usr) {
         let userData = {id: "1", username: "rr", password: "rr", addressList: [{id: "1", name: "friend1", currentAddress:"address1"},{id: "2", name: "friend2",currentAddress:"address2"}]};
 
-        const request = new Request('http://localhost:3000/authenticate',{
+        const request = new Request(apihost +'authenticate',{
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -41,7 +43,7 @@ class dataApi {
     static register(usr) {
        // let userData = {id: "1", username: "rr", password: "rr", addressList: [{id: "1", name: "friend1", currentAddress:"address1"},{id: "2", name: "friend2",currentAddress:"address2"}]};
 
-        const request = new Request('http://localhost:3000/adduser',{
+        const request = new Request(apihost +'adduser',{
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -60,7 +62,7 @@ class dataApi {
       static getGlobalFeed() {
        // let userData = {id: "1", username: "rr", password: "rr", addressList: [{id: "1", name: "friend1", currentAddress:"address1"},{id: "2", name: "friend2",currentAddress:"address2"}]};
 
-        const request = new Request('http://localhost:3000/getglobalfeed',{
+        const request = new Request(apihost + 'getglobalfeed',{
             method: 'GET',
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -77,7 +79,7 @@ class dataApi {
 
      static getYourFeed(usr) {
        // let userData = {id: "1", username: "rr", password: "rr", addressList: [{id: "1", name: "friend1", currentAddress:"address1"},{id: "2", name: "friend2",currentAddress:"address2"}]};
-        const request = new Request('http://localhost:3000/user/getyourfeed',{
+        const request = new Request(apihost +'user/getyourfeed',{
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -97,7 +99,7 @@ class dataApi {
 
     static addNewArticle(article) {
 
-        const request = new Request('http://localhost:3000/user/addarticle',{
+        const request = new Request(apihost +'user/addarticle',{
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -117,7 +119,7 @@ class dataApi {
 
     static getUserArticles(userid) {
 
-        const request = new Request('http://localhost:3000/getuserarticles',{
+        const request = new Request(apihost +'getuserarticles',{
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -135,7 +137,7 @@ class dataApi {
 
     static addFollowing(data) {
 
-        const request = new Request('http://localhost:3000/user/addfollowing',{
+        const request = new Request(apihost +'user/addfollowing',{
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -154,7 +156,7 @@ class dataApi {
 
     static removeFollowing(data) {
 
-        const request = new Request('http://localhost:3000/user/removefollowing',{
+        const request = new Request(apihost+'user/removefollowing',{
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -173,7 +175,7 @@ class dataApi {
 
 
     static addLike(data) {
-        const request = new Request('http://localhost:3000/user/addlike',{
+        const request = new Request(apihost+'user/addlike',{
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -192,7 +194,7 @@ class dataApi {
 
 
     static removeLike(data) {
-        const request = new Request('http://localhost:3000/user/removelike',{
+        const request = new Request(apihost+'user/removelike',{
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -211,7 +213,7 @@ class dataApi {
 
     static getUserLikes(userid) {
 
-        const request = new Request('http://localhost:3000/user/getuserlikes',{
+        const request = new Request(apihost+'user/getuserlikes',{
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -231,7 +233,7 @@ class dataApi {
 
     static getArticleComments(articleid) {
 
-        const request = new Request('http://localhost:3000/getarticlecomments',{
+        const request = new Request(apihost+'getarticlecomments',{
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -249,7 +251,7 @@ class dataApi {
 
     static addNewComment(commentData) {
 
-        const request = new Request('http://localhost:3000/user/addcomment',{
+        const request = new Request(apihost+'user/addcomment',{
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -268,7 +270,7 @@ class dataApi {
 
     static removeComment(data) {
 
-        const request = new Request('http://localhost:3000/user/removecomment',{
+        const request = new Request(apihost+'user/removecomment',{
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -287,7 +289,7 @@ class dataApi {
 
     static getArticleById(articleid) {
 
-        const request = new Request('http://localhost:3000/getarticlebyid',{
+        const request = new Request(apihost+'getarticlebyid',{
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json'
@@ -305,7 +307,7 @@ class dataApi {
 
     static loadUserFromToken(token) {
 
-        const request = new Request('http://localhost:3000/user/loadUserFromToken',{
+        const request = new Request(apihost+'user/loadUserFromToken',{
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json',
@@ -324,7 +326,7 @@ class dataApi {
 
     static getUserById(userId) {
 
-        const request = new Request('http://localhost:3000/getuserbyid',{
+        const request = new Request(apihost+'getuserbyid',{
             method: 'POST',
             headers: new Headers({
                 'Content-Type': 'application/json'
