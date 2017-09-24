@@ -14,7 +14,8 @@ var user = require('./routes/user');
 var mongo = require('mongodb');
 var monk = require('monk');
 //var db = monk('localhost:27017/nodetest1');
-var db = monk('mongodb://127.0.0.1:27017/nodetest4');
+//var db = monk('mongodb://127.0.0.1:27017/nodetest4');
+var db = monk('mongodb://heroku_dv35td1g:g4coi4ga1dvblug619nhqg0hsk@ds147034.mlab.com:47034/heroku_dv35td1g');
 var jwt    = require('jsonwebtoken');
 
 
@@ -40,7 +41,8 @@ app.use(function(req,res,next){
     req.db = db;
     next();
 });
-
+const staticFiles = express.static(path.join(__dirname, './client/build'))
+app.use(staticFiles);
 
 app.use('/', index);
 // route middleware to verify a token
