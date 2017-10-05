@@ -1,0 +1,13 @@
+.article-item .article-title span{
+    text-align :left;
+    cursor:pointer;
+    font-size:1.1em;
+    color: #2aabd2;
+}
+.article-item .article-title :hover{
+    text-decoration:underline;
+}
+
+.article-item .btn-green{
+    float:right;
+}

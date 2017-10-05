@@ -1,10 +1,11 @@
 /**
- * Created by rabby on 21/08/2017.
+ * Created by rabby 
+ * The reducer which handles the user details, likes and login error message
  */
 import history from '../History'
 
 
-const UserDataReducer = (state = {user:{},likes:[]}, action = {}) => {
+const UserDataReducer = (state = {user:{},likes:[],login:{errorMessage:""}}, action = {}) => {
 
     switch (action.type){
 
@@ -53,9 +54,6 @@ const UserDataReducer = (state = {user:{},likes:[]}, action = {}) => {
         case "LOAD_USER_TOKEN_SUCCESS" :
             return loadUserFromTokenSuccess(state,action);
 
-        case "LOAD_USER_TOKEN_FAILED" :
-            return  loadUserFromTokenFailed(state,action);
-
         case "HANDLE_LOGOUT_SUCCESS" :
             return handleLogoutSuccess(state,action);
 
@@ -70,10 +68,19 @@ const UserDataReducer = (state = {user:{},likes:[]}, action = {}) => {
         return {...state};
     }
 
+    function registerFailed(state,action){
+        window.alert(action.data.message);
+        return state;
+    }
+
 
     function loginSuccess(state, action){
          history.push('/feed');
-        return {...state, user : action.data.user , likes:action.data.userLikes };
+        return {...state, user : action.data.user, likes:action.data.userLikes, login:{errorMessage:""}};
+    }
+
+    function loginFailed(state, action){
+        return {...state, login:{errorMessage:action.data.message} };
     }
 
     function addArticleSuccess(state,action){
@@ -81,33 +88,21 @@ const UserDataReducer = (state = {user:{},likes:[]}, action = {}) => {
         return {...state};
     }
 
-    function addLikeSuccess(state,action){
-        return {...state,likes:action.data.userLikes};
-    }
-
-    function removeLikeSuccess(state,action){
-        return {...state,likes:action.data.userLikes};
-    }
-
-
-
-    function registerFailed(state,action){
-        window.alert(action.data.message);
-        return state;
-    }
-
-    function loginFailed(state,action){
-        window.alert(action.data.message);
-        return state;
-    }
-
     function addArticleFailed(state,action){
         window.alert(action.data.message);
         return state;
     }
 
+    function addLikeSuccess(state,action){
+        return {...state,likes:action.data.userLikes};
+    }
+
     function addLikeFailed(state,action){
         return {...state};
+    }
+
+    function removeLikeSuccess(state,action){
+        return {...state,likes:action.data.userLikes};
     }
 
     function removeLikeFailed(state,action){
@@ -132,13 +127,13 @@ const UserDataReducer = (state = {user:{},likes:[]}, action = {}) => {
         return state;
     }
 
+    function loadUserFromTokenSuccess(state, action){
+        return {...state, user : action.data.user , likes:action.data.userLikes };
+    }
+
     function loadUserFromTokenFailed(state,action){
         window.alert(action.data.message);
         return state;
-    }
-
-    function loadUserFromTokenSuccess(state, action){
-        return {...state, user : action.data.user , likes:action.data.userLikes };
     }
 
     function handleLogoutSuccess(state,action){

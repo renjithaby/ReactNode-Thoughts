@@ -1,10 +1,12 @@
+/**
+ *  Created by rabby
+ *  Container Component , which handles showing the Feeds
+ *  uses 2 child components FeedPage, ArticleItem
+ */
 import React, { Component } from 'react';
-import './App.css';
-import Header from './Header';
 import FeedPage  from './FeedPage';
-import * as Actions from  "./Actions/Action";
+import * as Actions from  "../../Actions/Action";
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route ,Switch, Link, hashHistory,browserHistory } from 'react-router-dom';
 class Feed extends Component {
 
     constructor(props){
@@ -17,9 +19,6 @@ class Feed extends Component {
         this.setCurrentFeed();
     }
 
-    componentWillReceiveProps(nextProps){
-
-    }
 
     setCurrentFeed(event){
         var name = this.state.currentFeed;
@@ -32,7 +31,6 @@ class Feed extends Component {
         }
         this.setState({currentFeed: name});
         this.props.getFeed({"_id":this.props.userData.user._id,"feed":name});
-
     }
 
     isArticleLiked(articleid){

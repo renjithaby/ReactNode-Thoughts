@@ -4,7 +4,6 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from './logo.svg';
 import ArticleItem from './ArticleItem';
 
 
@@ -14,15 +13,6 @@ class FeedPage extends React.Component {
     constructor(props){
         super(props);
     }
-
-    componentWillMount(props){
-
-    }
-
-    componentWillReceiveProps(nextProps){
-
-    }
-
 
     render() {
         return (

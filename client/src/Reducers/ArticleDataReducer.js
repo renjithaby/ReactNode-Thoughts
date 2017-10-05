@@ -1,5 +1,7 @@
 /**
- * Created by rabby on 12/09/2017.
+ * Created by rabby 
+ * The reducer which Stores and manages the Article data, feeds,selected user profile, seletcted article detail
+ *
  */
 import history from '../History'
 const ArticleDataReducer = (state = {feed:"global",globalFeed:[],yourFeed:[],selectedProfile:{user:{},articles:[]},selectedArticle:{article:{}, comments:[]}}, action = {}) => {

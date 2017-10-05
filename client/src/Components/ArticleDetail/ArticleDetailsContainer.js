@@ -1,31 +1,23 @@
+/**
+ * Created by rabby 
+ *  Container Component , which handles showing the article details
+ *  uses three child components ArticleDetailHeader, CommentItem, NewCommentItem
+ */
 import React, { Component } from 'react';
-import './App.css';
-import Header from './Header';
-import SignUpPage  from './SignUpPage';
-import SignInPage  from './SignInPage';
-import NewPostPage  from './NewPostPage';
-import UserProfilePage  from './UserProfilePage';
 import ArticleDetailHeader  from './ArticleDetailHeader';
 import CommentItem from './CommentItem';
 import NewCommentItem  from './NewCommentItem';
-import * as Actions from  "./Actions/Action";
+import * as Actions from  "../../Actions/Action";
 import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route ,Switch, Link, hashHistory,browserHistory } from 'react-router-dom';
 class ArticleDetails extends Component {
+
     constructor(props){
         super(props);
-
-
     }
-
 
     componentDidMount(props){
         this.props.getArticleById(this.props.match.params.id);
         this.props.getArticleComments(this.props.match.params.id);
-    }
-
-    componentWillReceiveProps(nextProps){
-
     }
 
     addNewComment(comment) {

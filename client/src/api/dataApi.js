@@ -1,13 +1,11 @@
 /**
- * Created by rabby on 22/08/17.
+ * Created by rabby
+ * DataApi handles the fetch request  to the backend server up on the request from the action and return the response.
  */
 
-export const apihost = "https://protected-dusk-49814.herokuapp.com/";//http://localhost:3000/
+export const apihost = "https://protected-dusk-49814.herokuapp.com/";//"http://localhost:3000/";
+
 class dataApi {
-    constructor() {
-
-    }
-
 
 
     static login(usr) {
@@ -27,15 +25,6 @@ class dataApi {
             return error;
         });
 
-
-
-       /* let myPromise = new Promise((resolve, reject) => {
-            setTimeout(function () {
-                return(resolve(userData)); // Yay! Everything went well!
-            }, 250);
-        });
-
-        return myPromise;*/
 
     }
 

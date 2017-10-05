@@ -1,0 +1,7 @@
+.new-comment .add-comment div{
+    min-height:20px;
+}
+
+.new-comment .add-comment .btn-green{
+    float:right;
+}

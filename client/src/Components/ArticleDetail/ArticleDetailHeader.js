@@ -3,8 +3,7 @@
  */
 
 import React from 'react';
-import ArticleItem from './ArticleItem';
-import history from './History';
+import history from '../../History';
 
 class ArticleDetailHeader extends React.Component {
 
@@ -13,13 +12,8 @@ class ArticleDetailHeader extends React.Component {
         this.state = {};
 
     }
-    componentWillMount(props){
-        console.log("component will mount...");
-        console.log(this.props);
-    }
 
     showUserProfile(){
-        //this.props.showUserProfile({"_id":this.props.article.author.authorId, "name":this.props.article.author.authorName});
         history.push('/userprofile/'+this.props.article.author.authorId);
     }
 

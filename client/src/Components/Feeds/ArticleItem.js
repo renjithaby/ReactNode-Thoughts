@@ -3,22 +3,18 @@
  */
 
 import React from 'react';
-import history from './History';
+import history from '../../History';
+import './ArticleItem.css';
+
 class ArticleItem extends React.Component {
 
     constructor(props){
         super(props);
-       // this.state.liked = false;
     }
     componentWillMount(props){
-
-        console.log("this is the feed page  componentWillMount....." );
-        console.log(this.props.type);
-        //this.props.getFeed({"_id":"59b7a4dd394bb461e38e56b2","feed":this.props.type});
     }
 
     showUserProfile(){
-        //this.props.showUserProfile({"_id":this.props.article.author.authorId, "name":this.props.article.author.authorName});
         history.push('/userprofile/'+this.props.article.author.authorId);
     }
 
@@ -48,7 +44,7 @@ class ArticleItem extends React.Component {
 
                 </div>
                 <div className="panel-body">
-                    <div className = "article-title" onClick = {this.showArticle.bind(this)}><h4>{ this.props.article.title }</h4></div>
+                    <div className = "article-title" ><span onClick = {this.showArticle.bind(this)}>{ this.props.article.title }</span></div>
                     {this.props.article.content}
 
                 </div>

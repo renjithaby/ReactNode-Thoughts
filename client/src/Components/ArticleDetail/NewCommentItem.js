@@ -4,6 +4,7 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './NewComment.css';
 
 
 class NewCommentItem extends React.Component {
@@ -24,8 +25,6 @@ class NewCommentItem extends React.Component {
 
     addNewComment(event) {
         event.preventDefault();
-        //alert('A name was submitted: ' + this.state.username);
-
         this.props.addNewComment( this.state.content);
         return false;
     }
@@ -35,7 +34,7 @@ class NewCommentItem extends React.Component {
     render() {
 
         return (
-            <div className ="well">
+            <div className ="new-comment well">
             <div className ="form-block  add-comment">
             <form  onSubmit = {this.addNewComment.bind(this)}>
 

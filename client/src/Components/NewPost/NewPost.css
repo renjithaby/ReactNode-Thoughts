@@ -1,0 +1,20 @@
+.new-post .btn-submit{
+    display:block;
+    margin:0 auto;
+    text-align:center;
+}
+
+.new-post .form-group{
+    max-width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.new-post input[type="submit"]:disabled{
+    background-color:grey;
+    color:black;
+}
+
+.new-post h4{
+    text-align:center;
+}

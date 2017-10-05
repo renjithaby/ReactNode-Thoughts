@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import ArticleItem from './ArticleItem';
+import ArticleItem from '../../Components/Feeds/ArticleItem';
 import UserProfileHeader from './UserProfileHeader';
 
 class UserProfilePage extends React.Component {
@@ -17,7 +17,6 @@ class UserProfilePage extends React.Component {
     }
 
     componentWillReceiveProps(props){
-        console.log("component will mount  UserProfilePage.......");
         this.setFollowBtnState(props);
     }
 
@@ -37,7 +36,6 @@ class UserProfilePage extends React.Component {
             showFollow = false;
         }
         this.setState({follow:follow,showFollow:showFollow});
-        //this.props.getUserArticles(this.props.currentUser._id);//
     }
 
 

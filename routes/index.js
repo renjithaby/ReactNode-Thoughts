@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var jwt    = require('jsonwebtoken');
-var loginId = null;
 
 
 /* GET home page. */
@@ -15,7 +14,6 @@ router.post('/adduser', function (req, res) {
     // Set our internal DB variable
     var db = req.db;
 
-    // Get our form values. These rely on the "name" attributes
     var userName = req.body.username;
     var userPassword = req.body.password;
     var userEmail = req.body.email;
@@ -23,29 +21,37 @@ router.post('/adduser', function (req, res) {
     // Set our collection
     var collection = db.get('usercollection1');
 
-    // Submit to the DB
-    collection.insert({
-        "username": userName,
-        "password": userPassword,
-        "email": userEmail,
-        "following":[]
-    }, function (err, doc) {
-        if (err) {
-            // If it failed, return error
-            res.send({result:"failed",message:"There was a problem adding the information to the database."});
-        }
-        else {
-            // And forward to success page
-            res.send({result: "success"});
-            //router.post('/authenticate'
+    collection.find({
+        "username": userName
+    }, function(err, user) {
+
+        if (err) throw err;
+
+        if (user[0]) {
+            res.send({result: "failed", message: 'Username already taken, please try again.'});
+        }else {
+            // Submit to the DB
+            collection.insert({
+                "username": userName,
+                "password": userPassword,
+                "email": userEmail,
+                "following":[]
+            }, function (err, doc) {
+                if (err) {
+                    // If it failed, return error
+                    res.send({result:"failed",message:"There was a problem adding the information to the database."});
+                }
+                else {
+                    res.send({result: "success"});
+                }
+            });
         }
     });
+
 });
 
-// route to authenticate a user (POST http://localhost:8080/api/authenticate)
+// route to authenticate a user
 router.post('/authenticate', function(req, res) {
-    //console.log("req.body.name");
-    //console.log(req.body.name);
     var app = req.app;
     var db = req.db;
 
@@ -60,10 +66,6 @@ router.post('/authenticate', function(req, res) {
         if (!user[0]) {
             res.json({ result: "failed", message: 'Authentication failed. User not found.' });
         } else if (user[0]) {
-            console.log("user.password");
-            console.log(user[0].password);
-            console.log("req.body.password");
-            console.log(req.body.password);
             // check if password matches
             if (user[0].password != req.body.password) {
                 res.json({ result: "failed", message: 'Authentication failed. Wrong password.' });
@@ -75,8 +77,6 @@ router.post('/authenticate', function(req, res) {
                     expiresIn: 1440 // expires in 24 hours
                 });
                 var decoded = jwt.verify(token, app.get('superSecret'));
-                console.log("decoded........");
-                console.log(decoded);
                 // return the information including token as JSON
                 res.json({
                     success: true,
@@ -89,6 +89,7 @@ router.post('/authenticate', function(req, res) {
         }
     });
 });
+
 
 router.post('/getarticlecomments', function (req, res) {
     var db = req.db;
@@ -107,12 +108,11 @@ router.post('/getarticlecomments', function (req, res) {
     });
 });
 
+
 router.post('/getarticlebyid', function (req, res) {
     var db = req.db;
     var articleId = req.body.articleid;
     var collection = db.get('articlecollection1');
-    console.log("getarticlebyid");
-    console.log(articleId);
 
     collection.find({_id: articleId}, {limit:5, sort:{time:-1}}, function (err, docs) {
 
@@ -121,11 +121,11 @@ router.post('/getarticlebyid', function (req, res) {
             res.send({result: "failed", message: "There was a problem adding the information to the database."});
         }
         else {
-            console.log(docs);
             res.send({result: "success", article: docs[0]});
         }
     });
 });
+
 
 router.post('/getuserbyid', function (req, res) {
     var db = req.db;
@@ -139,7 +139,6 @@ router.post('/getuserbyid', function (req, res) {
             res.send({result: "failed", message: "There was a problem adding the information to the database."});
         }
         else {
-            console.log(docs);
             res.send({result: "success", user: docs[0]});
         }
     });
@@ -149,10 +148,8 @@ router.post('/getuserbyid', function (req, res) {
 router.post('/getarticlelikecount', function (req, res) {
     var db = req.db;
     var articleId = req.body.articleid;
-    var time = Date.now();
     var collection = db.get('likecollection1');
 
-    //console.log(collection.find({articleid: articleId}));
     // Submit to the DB
     collection.count({articleid: articleId}, function (err, count) {
 
@@ -167,19 +164,8 @@ router.post('/getarticlelikecount', function (req, res) {
 });
 
 
-
-
-
-
-
 router.get('/getglobalfeed', function (req, res) {
-
-    // Set our internal DB variable
     var db = req.db;
-
-    // Get our form values. These rely on the "name" attributes
-    var article = req.body.type;
-
     // Set our collection
     var collection = db.get('articlecollection1');
 
@@ -191,23 +177,20 @@ router.get('/getglobalfeed', function (req, res) {
             res.send({result:"failed",message:"There was a problem adding the information to the database."});
         }
         else {
-            // And forward to success page
-            console.log(docs);
+            //And return  success result
             res.json({result: "success", article : docs})
         }
     });
 });
 
+
 router.post('/getuserarticles', function (req, res) {
 
     // Set our internal DB variable
     var db = req.db;
-
-    // Get our form values. These rely on the "name" attributes
-
     // Set our collection
     var collection = db.get('articlecollection1');
-    //{'author.authorId':req.body.userid}
+
     // Submit to the DB
     collection.find({authorId :req.body.userid},{limit:5, sort:{time:-1}}, function (err, docs) {
 
@@ -216,15 +199,13 @@ router.post('/getuserarticles', function (req, res) {
             res.send({result:"failed",message:"There was a problem adding the information to the database."});
         }
         else {
-            // And forward to success page
-
+            // And return  success result
             res.json({result: "success", article : docs})
         }
     });
 });
 
 
-/* GET Userlist page. */
 router.get('/userlist', function (req, res) {
     var db = req.db;
     var collection = db.get('usercollection1');
@@ -232,8 +213,6 @@ router.get('/userlist', function (req, res) {
          res.render('userlist', {
          "userlist" : docs
          });
-
-        //res.send({"userlist": docs});
     });
 });
 

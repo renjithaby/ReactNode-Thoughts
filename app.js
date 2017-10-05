@@ -2,18 +2,13 @@ var express = require('express');
 var router = express.Router();
 var cors = require('cors');
 var path = require('path');
-var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var index = require('./routes/index');
-var users = require('./routes/users');
 var user = require('./routes/user');
-
 var mongo = require('mongodb');
 var monk = require('monk');
-//var db = monk('localhost:27017/nodetest1');
 //var db = monk('mongodb://127.0.0.1:27017/nodetest4');
 var db = monk('mongodb://heroku_dv35td1g:g4coi4ga1dvblug619nhqg0hsk@ds147034.mlab.com:47034/heroku_dv35td1g');
 var jwt    = require('jsonwebtoken');
@@ -26,9 +21,6 @@ app.use(cors());
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.set('superSecret', "godslove");
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -43,6 +35,13 @@ app.use(function(req,res,next){
 });
 const staticFiles = express.static(path.join(__dirname, './client/build'))
 app.use(staticFiles);
+
+app.use('/feed',express.static(path.join(__dirname, './client/build')));
+app.use('/signin',express.static(path.join(__dirname, './client/build')));
+app.use('/signup',express.static(path.join(__dirname, './client/build')));
+app.use('/newpost',express.static(path.join(__dirname, './client/build')));
+app.use('/userprofile/:id',express.static(path.join(__dirname, './client/build')));
+app.use('/article/:id',express.static(path.join(__dirname, './client/build')));
 
 app.use('/', index);
 // route middleware to verify a token
@@ -79,8 +78,6 @@ app.use(function(req, res, next) {
 
 app.use('/user', user);
 
-
-//app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

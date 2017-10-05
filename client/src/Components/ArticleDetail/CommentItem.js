@@ -3,7 +3,8 @@
  */
 
 import React from 'react';
-import history from './History';
+import history from '../../History';
+import './CommentItem.css';
 class CommentItem extends React.Component {
 
     constructor(props){
@@ -25,10 +26,10 @@ class CommentItem extends React.Component {
 
     render() {
         return (
-            <div className="panel panel-default">
+            <div className="comment-item panel panel-default">
 
                 <div className="panel-heading">
-                    <div className="username" onClick = {this.showUserProfile.bind(this)}><span> {this.props.comment.user.username}</span> </div>
+                    <div className="username" ><span onClick = {this.showUserProfile.bind(this)}> {this.props.comment.user.username}</span> </div>
                 { this.props.loggedInUser._id === this.props.comment.user.userid ?<i  onClick = {this.removeComment.bind(this)} className="bin-icon fa fa-trash-o" aria-hidden="true"></i>:null}
                     <span><small> {(new Date(this.props.comment.time)).toUTCString()}</small></span>
                 </div>

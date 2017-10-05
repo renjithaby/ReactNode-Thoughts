@@ -12,24 +12,9 @@ router.get('/', function(req, res, next) {
 });
 
 
-/*let userData = {id: "1", username: "rr", password: "rr",
- addressList: [{id: "1", name: "friend1", currentAddress:"address1"},
- {id: "2", name: "friend2",currentAddress:"address2"}]};*/
-/* POST to Add User Service */
-
-
-/* POST to Add User Service */
-
 router.post('/removeuser', function (req, res) {
-
-
-
-    // Set our internal DB variable
     var db = req.db;
-    //res.redirect("/userlist1");
-    // Get our form values. These rely on the "name" attributes
     var id = req.body.userid;
-
 
     // Set our collection
     var collection = db.get('usercollection1');
@@ -41,13 +26,10 @@ router.post('/removeuser', function (req, res) {
             res.send({result:"failed",message:"There was a problem adding the information to the database."});
         }
         else {
-            // And forward to success page
-           // res.redirect("userlist");
+            res.send({result:"success"});
         }
     });
 });
-
-
 
 
 /* GET Userlist page. */
@@ -56,9 +38,6 @@ router.get('/userlist', function (req, res) {
 
     var collection = db.get('usercollection1');
        collection.find({}, {}, function (e, docs) {
-        /* res.render('userlist', {
-         "userlist" : docs
-         });*/
         if(e){
             res.send({result:"failed"});
         }
@@ -72,7 +51,6 @@ router.post('/addfollowing', function (req, res) {
     var userId = req.body.userid;
     var authorId = req.body.authorid;
     var collection = db.get('usercollection1');
-
 
     collection.update(
         {_id: userId},
@@ -88,7 +66,6 @@ router.post('/addfollowing', function (req, res) {
                     res.send({result:"failed",message:"There was a problem adding the information to the database."});
                 }
                 else {
-                    // And forward to success page
                     res.json({result: "success", user : docs[0]})
                 }
             });
@@ -103,14 +80,12 @@ router.post('/removefollowing', function (req, res) {
     var authorId =  req.body.authorid;
     var collection = db.get('usercollection1');
 
-
     collection.update(
         {_id: userId},
         {$pull: {following: {"authorId":authorId}}}, function (err, docs) {
             if(err) {
                 res.send({result: "failed1", message: "There was a problem adding the information to the database."});
             }
-            //res.send({"user": docs});
         }).then(() => {
             collection.find({_id:userId}, function (err, docs) {
 
@@ -119,8 +94,6 @@ router.post('/removefollowing', function (req, res) {
                     res.send({result:"failed1",message:"There was a problem adding the information to the database."});
                 }
                 else {
-                    // And forward to success page
-
                     res.json({result: "success", user : docs[0]})
                 }
             });
@@ -171,9 +144,7 @@ router.post('/addlike', function (req, res) {
                                     if(err) {
                                         res.send({result: "failed1", message: "There was a problem adding the information to the database."});
                                     }
-                                    //res.send({"user": docs});
                                 }).then(() => {
-
                                     res.json({result: "success", resultData : resultData})
 
                                 });
@@ -225,7 +196,6 @@ router.post('/removelike', function (req, res) {
                                     if(err) {
                                         res.send({result: "failed1", message: "There was a problem adding the information to the database."});
                                     }
-                                    //res.send({"user": docs});
                                 }).then(() => {
 
                                     res.json({result: "success", resultData : resultData})
@@ -240,13 +210,13 @@ router.post('/removelike', function (req, res) {
     });
 });
 
+
 router.post('/getuserlikes', function (req, res) {
     var db = req.db;
     var userId = req.body.userid;
     var collection = db.get('likecollection1');
-    //userid: userId
-    collection.find({"userid":userId}, {sort:{time:-1}}, function (err, docs) {
 
+    collection.find({"userid":userId}, {sort:{time:-1}}, function (err, docs) {
         if (err) {
             // If it failed, return error
             res.send({result: "failed", message: "There was a problem adding the information to the database."});
@@ -257,6 +227,7 @@ router.post('/getuserlikes', function (req, res) {
     });
 });
 
+
 router.post('/addcomment', function (req, res) {
     var db = req.db;
     var user = req.body.user;
@@ -264,7 +235,6 @@ router.post('/addcomment', function (req, res) {
     var comment = req.body.comment;
     var time = Date.now();
     var collection = db.get('commentcollection1');
-
 
     // Submit to the DB
     collection.insert({
@@ -291,6 +261,7 @@ router.post('/addcomment', function (req, res) {
         }
     });
 });
+
 
 router.post('/removecomment', function (req, res) {
     var db = req.db;
@@ -323,10 +294,8 @@ router.post('/removecomment', function (req, res) {
 
 router.post('/loadUserFromToken', function (req, res) {
     var db = req.db;
-
     var userId = req.decoded._id;
     var collection = db.get('usercollection1');
-
 
     collection.find({_id:userId}, {limit:5, sort:{time:-1}}, function (err, docs) {
 
@@ -342,18 +311,11 @@ router.post('/loadUserFromToken', function (req, res) {
 });
 
 
-
-/*let userData = {id: "1", username: "rr", password: "rr",
- addressList: [{id: "1", name: "friend1", currentAddress:"address1"},
- {id: "2", name: "friend2",currentAddress:"address2"}]};*/
-/* POST to Add User Service */
+/* POST to addarticle */
 router.post('/addarticle', function (req, res) {
 
     // Set our internal DB variable
     var db = req.db;
-
-    // Get our form values. These rely on the "name" attributes
-
     var newArticle = {
 
         title: req.body.title,
@@ -364,11 +326,8 @@ router.post('/addarticle', function (req, res) {
         time:Date.now(),
         comments:[]
     }
-
     // Set our collection
     var collection = db.get('articlecollection1');
-
-
 
     // Submit to the DB
     collection.insert({
@@ -385,7 +344,7 @@ router.post('/addarticle', function (req, res) {
             res.send({result:"failed",messsage:"There was a problem adding the information to the database."});
         }
         else {
-            // And forward to success page
+            // And return  success result
             res.json({result: "success", article : doc})
         }
     });
@@ -397,11 +356,8 @@ router.post('/removearticle', function (req, res) {
 
     // Set our internal DB variable
     var db = req.db;
-    //res.redirect("/userlist1");
     // Get our form values. These rely on the "name" attributes
     var articleid = req.body.articleid;
-
-
     // Set our collection
     var collection = db.get('articlecollection1');
 
@@ -412,7 +368,7 @@ router.post('/removearticle', function (req, res) {
             res.send({result:"failed",messsage:"There was a problem adding the information to the database."});
         }
         else {
-            // And forward to success page
+            //And return  success result
             res.json({result: "success"});
         }
     });
@@ -424,7 +380,6 @@ router.post('/getyourfeed', function (req, res) {
 
     // Set our internal DB variable
     var db = req.db;
-
     // Get our form values. These rely on the "name" attributes
     var id = req.body.userid;
     var usercollection = db.get('usercollection1');
@@ -439,9 +394,7 @@ router.post('/getyourfeed', function (req, res) {
             res.send({result:"failed",message:"There was a problem adding the information to the database."});
         }
         else {
-            // And forward to success page
-            // Submit to the DB
-            // send empty array if there is no following
+
             if(!docs[0].following.length>0){
                 res.send({result:"success",article : []});
             }
@@ -450,9 +403,6 @@ router.post('/getyourfeed', function (req, res) {
         }
     }).then((docs) => {
 
-
-        // docs[0].following = [{ "author": "59b698be8e920a53fafd7a52"},{"author": "59b6b36b238bf2558572f2f2"}];
-        // {$or :docs[0].following}
         collection.find({$or :docs[0].following},{limit:4, sort:{time:-1}}, function (err, docs) {
 
             if (err) {
@@ -460,7 +410,7 @@ router.post('/getyourfeed', function (req, res) {
                 res.send({result:"failed",message:"There was a problem adding the information to the database."});
             }
             else {
-                // And forward to success page
+                // And return  success result
                 res.json({result: "success", article : docs})
             }
         });
@@ -469,11 +419,6 @@ router.post('/getyourfeed', function (req, res) {
 
 
 });
-
-
-
-
-
 
 
 

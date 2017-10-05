@@ -1,5 +1,6 @@
 /**
- * Created by rabby on 09/08/17.
+ * Created by rabby
+ * The module which register the actions , that handles the required tasks and notify the reducers the result.
  */
 
 import dataApi from '../api/dataApi'
@@ -222,13 +223,6 @@ export const removeCommentFailed = (data) => {
     };
 }
 
-export const loadUserFromTokenFailed = (data) => {
-    return {
-        type: "LOAD_USER_TOKEN_FAILED",
-        data: data
-    };
-}
-
 export const loadUserFromTokenSuccess = (data) => {
     return {
         type: "LOAD_USER_TOKEN_SUCCESS",
@@ -243,8 +237,6 @@ export const handleLogout = (data) => {
         data: data
     };
 }
-
-
 
 export function loginUser(usr) {
     return function(dispatch) {
@@ -318,8 +310,6 @@ export function getYourFeed(usr) {
     };
 }
 
-
-
 export function addNewArticle(article) {
     return function(dispatch) {
         return dataApi.addNewArticle(article).then(data => {
@@ -334,7 +324,6 @@ export function addNewArticle(article) {
     };
 }
 
-
 export function getUserArticles(userid) {
     return function(dispatch) {
         return dataApi.getUserArticles(userid).then(data => {
@@ -348,7 +337,6 @@ export function getUserArticles(userid) {
         });
     };
 }
-
 
 export function addFollowing(data) {
     return function(dispatch) {
