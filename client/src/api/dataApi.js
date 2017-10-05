@@ -3,7 +3,7 @@
  * DataApi handles the fetch request  to the backend server up on the request from the action and return the response.
  */
 
-export const apihost = "https://protected-dusk-49814.herokuapp.com/";//"http://localhost:3000/";
+export const apihost = "http://localhost:3000/"; //"https://protected-dusk-49814.herokuapp.com/";
 
 class dataApi {
 

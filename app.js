@@ -9,8 +9,8 @@ var index = require('./routes/index');
 var user = require('./routes/user');
 var mongo = require('mongodb');
 var monk = require('monk');
-//var db = monk('mongodb://127.0.0.1:27017/nodetest4');
-var db = monk('mongodb://heroku_dv35td1g:g4coi4ga1dvblug619nhqg0hsk@ds147034.mlab.com:47034/heroku_dv35td1g');
+var db = monk('mongodb://127.0.0.1:27017/nodetest');
+//var db = monk('mongodb://heroku_dv35td1g:g4coi4ga1dvblug619nhqg0hsk@ds147034.mlab.com:47034/heroku_dv35td1g');
 var jwt    = require('jsonwebtoken');
 
 
