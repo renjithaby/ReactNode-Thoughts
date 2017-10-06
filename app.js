@@ -20,7 +20,7 @@ app.use(cors());
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
-app.set('superSecret', "godslove");
+app.set('superSecret', "abundance");
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

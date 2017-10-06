@@ -17,13 +17,9 @@ ReactDOM.render(
         <Provider store={store}>
         <Router  history={history} >
             <Switch>
-                <Route   path="/feed" component={AppContainer}/>
-                <Route   path="/signin" component={AppContainer}/>
-                <Route   path="/signup" component={AppContainer}/>
-                <Route   path="/newpost" component={AppContainer}/>
                 <Route   path="/userprofile/:id" component={AppContainer}/>
                 <Route   path="/article/:id" component={AppContainer}/>
-                <Route component={() => <AppContainer/>}/>
+                <Route component={AppContainer}/>
             </Switch>
         </Router>
     </Provider>
